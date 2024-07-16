@@ -12,16 +12,13 @@ import 'data/model/response/expense_model.dart';
 import 'helper/get_di.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await init();
   await Hive.initFlutter();
   Hive.registerAdapter(ExpenseAdapter());
   await Hive.openBox<Expense>('expenses');
   await Hive.openBox<Expense>('expenses');
-
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Asia/Kolkata')); // Use the full time zone identifier
-
-  await init();
   NotificationService.initialize();
   NotificationService.requestPermissions();
   NotificationService.showDailyNotification();
@@ -33,8 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
-
+      title: 'Expanse management app',
 debugShowCheckedModeBanner: false,
       theme: themeData,
       home:  const SplashScreen()

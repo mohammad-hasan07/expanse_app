@@ -2,12 +2,12 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import '../data/model/response/expense_model.dart';
 
-class ServicesController extends GetxController implements GetxService {
+class ExpenseController extends GetxController implements GetxService {
   late Box<Expense> _expenseBox;
 
   List<Expense> filterList=[];
 
-  ServicesController() {
+  ExpenseController() {
     _expenseBox = Hive.box<Expense>('expenses');
   }
 

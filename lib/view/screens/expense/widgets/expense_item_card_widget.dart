@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../../../controller/services_controller.dart';
 import '../../../../data/model/response/expense_model.dart';
 import '../../../../util/dimensions.dart';
-import '../expense_screen.dart';
+import '../add_expense_screen.dart';
 
 class ExpenseItemWidget extends StatelessWidget {
   final Expense expense;
@@ -63,7 +63,7 @@ class ExpenseItemWidget extends StatelessWidget {
       onDismissed: (DismissDirection direction) {
         // Delete the expense item
         // Note: Implement the delete logic in your controller or wherever you manage expenses
-        Get.find<ServicesController>().deleteExpense(expense.id);
+        Get.find<ExpenseController>().deleteExpense(expense.id);
       },
       child: Container(
         width: Get.width,

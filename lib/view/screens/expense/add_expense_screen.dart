@@ -14,7 +14,7 @@ class AddExpenseScreen extends StatefulWidget {
 }
 
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
-  final ServicesController controller = Get.find();
+  final ExpenseController controller = Get.find();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _amountController = TextEditingController();
@@ -46,38 +46,32 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             children: [
               TextFormField(
                 controller: _amountController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Amount',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an amount';
-                  }
-                  return null;
-                },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 controller: _descriptionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Description',
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 3,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ListTile(
-                title: Text(
+                title: const Text(
                   'Date',
                   style: TextStyle(fontSize: 16.0),
                 ),
                 subtitle: Text(
                   '${_selectedDate.toLocal()}'.split(' ')[0],
-                  style: TextStyle(fontSize: 16.0),
+                  style: const TextStyle(fontSize: 16.0),
                 ),
-                trailing: Icon(Icons.calendar_today),
+                trailing: const Icon(Icons.calendar_today),
                 onTap: () async {
                   DateTime? picked = await showDatePicker(
                     context: context,
@@ -92,7 +86,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   }
                 },
               ),
-              SizedBox(height: 32.0),
+              const SizedBox(height: 32.0),
               ElevatedButton(
                 onPressed: () {
                   double amount = double.tryParse(_amountController.text) ?? 0.0;
@@ -117,7 +111,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     );
                     Navigator.pop(context); // Close add expense screen
                   } else {
-                    // Show error or validation message
                     Get.snackbar(
                       'Error',
                       'Please enter valid amount and description.',

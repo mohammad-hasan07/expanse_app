@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/services_controller.dart';
 import '../../base/summary_card.dart';
-import '../expense/expense_list_screen.dart';
-import '../expense/expense_screen.dart';
+import '../expense/expense_list_view.dart';
+import '../expense/add_expense_screen.dart';
 
 
 
@@ -20,9 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime? _selectedDate;
   @override
   void initState() {
-    Get.find<ServicesController>().calculateMonthlyExpenses();
-    Get.find<ServicesController>().calculateWeeklyExpenses();
-    Get.find<ServicesController>().calculateTotalExpense();
+    Get.find<ExpenseController>().calculateMonthlyExpenses();
+    Get.find<ExpenseController>().calculateWeeklyExpenses();
+    Get.find<ExpenseController>().calculateTotalExpense();
     super.initState();
   }
 
@@ -61,7 +61,7 @@ Get.to(()=> const AddExpenseScreen());
                },
                ),
        ),
-      body: GetBuilder<ServicesController>(builder: (expenseController){
+      body: GetBuilder<ExpenseController>(builder: (expenseController){
 
         if(expenseController.isLoading){
          return const Center(child: CircularProgressIndicator());
@@ -73,7 +73,7 @@ Get.to(()=> const AddExpenseScreen());
                SummaryCard(
                 title: 'Total Expenses',
                 amount: expenseController.totalExpense,
-                icon: Icons.attach_money,
+                icon: Icons.currency_rupee,
                 backgroundColor: Colors.redAccent,
               ),
               Row(
@@ -139,8 +139,8 @@ setState(() {
                     ),
                   ],
                 ),
-              ):SizedBox(),
-              Flexible(child:  ExpenseListScreen(selectedDate: _selectedDate,)),
+              ):const SizedBox(),
+              Flexible(child:  ExpenseListView(selectedDate: _selectedDate,)),
             ],
           ),
         );

@@ -56,7 +56,7 @@ class SummaryCard extends StatelessWidget {
                  ),
                ):null,
                trailing: Text(
-                 '\$${amount.toStringAsFixed(2)}',
+                 '₹${amount.toStringAsFixed(2)}',
                  style: TextStyle(
                    fontWeight: FontWeight.bold,
                    fontSize: 18,

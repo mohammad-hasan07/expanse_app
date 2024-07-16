@@ -5,19 +5,19 @@ import 'package:get/get.dart';
 import '../../../controller/services_controller.dart';
 import '../../../data/model/response/expense_model.dart';
 
-class ExpenseListScreen extends StatefulWidget {
+class ExpenseListView extends StatefulWidget {
   final DateTime? selectedDate;
 
-  const ExpenseListScreen({super.key, this.selectedDate});
+  const ExpenseListView({super.key, this.selectedDate});
 
   @override
-  State<ExpenseListScreen> createState() => _ExpenseListScreenState();
+  State<ExpenseListView> createState() => _ExpenseListViewState();
 }
 
-class _ExpenseListScreenState extends State<ExpenseListScreen> {
+class _ExpenseListViewState extends State<ExpenseListView> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ServicesController>(builder: (expenseController) {
+    return GetBuilder<ExpenseController>(builder: (expenseController) {
       List<Expense> displayList = widget.selectedDate!=null
           ? expenseController.filterList
           : expenseController.expenses;
