@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
@@ -12,7 +15,7 @@ class NotificationService {
     const DarwinInitializationSettings initializationSettingsDarwin =
     DarwinInitializationSettings();
 
-    final InitializationSettings initializationSettings = InitializationSettings(
+    const InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsDarwin,
       macOS: initializationSettingsDarwin,
@@ -21,28 +24,60 @@ class NotificationService {
     _notificationsPlugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) async {
-        // Handle notification response here
-        print('Notification tapped while app is in foreground or background');
+
       },
     );
   }
 
-  static void requestPermissions() {
-    _notificationsPlugin
-        .resolvePlatformSpecificImplementation<
-        IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+  bool _notificationsEnabled = false;
+ void _isAndroidPermissionGranted() async {
+    if (Platform.isAndroid) {
+      final bool granted = await _notificationsPlugin
+          .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+          ?.areNotificationsEnabled() ??
+          false;
+
+        _notificationsEnabled = granted;
+
+    }
+  }
+
+ void requestPermissions() async {
+    if (Platform.isIOS || Platform.isMacOS) {
+      await _notificationsPlugin
+          .resolvePlatformSpecificImplementation<
+          IOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+      await _notificationsPlugin
+          .resolvePlatformSpecificImplementation<
+          MacOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+    } else if (Platform.isAndroid) {
+      final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+      _notificationsPlugin.resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>();
+
+      final bool? grantedNotificationPermission =
+      await androidImplementation?.requestNotificationsPermission();
+        _notificationsEnabled = grantedNotificationPermission ?? false;
+
+    }
   }
 
   static void showDailyNotification() async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(
-      'daily_notification_channel', // Change this for different notifications
-      'Daily Notification', // Change this for different notifications
+      'daily_notification_channel',
+      'Daily Notification',
       importance: Importance.max,
       priority: Priority.high,
       showWhen: false,
@@ -53,11 +88,10 @@ class NotificationService {
 
     await _notificationsPlugin.zonedSchedule(
       0, // Notification ID
-      'Daily Notification', // Notification title
-      'This is your daily notification', // Notification body
-      _nextInstanceOfTime(17, 21), // Schedule daily at 3:45 PM
+      'Expanse reminder', // Notification title
+      'check your expanses', // Notification body
+      _nextInstanceOfTime(20, 00),
       platformChannelSpecifics,
-      androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
       UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,

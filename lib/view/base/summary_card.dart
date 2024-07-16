@@ -1,4 +1,5 @@
 
+// ignore: unnecessary_import
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ class SummaryCard extends StatelessWidget {
   final double? height;
   final double? width;
 
-  const SummaryCard({
+  const SummaryCard({super.key,
      this.title,
     required this.amount,
     required this.icon,

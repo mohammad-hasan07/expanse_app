@@ -81,11 +81,11 @@ class ExpenseController extends GetxController implements GetxService {
     update();
     DateTime now = DateTime.now();
     DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-    DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
+    DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
 
     _weeklyExpense= expenses.where((expense) =>
-    expense.date.isAfter(startOfWeek.subtract(Duration(days: 1))) &&
-        expense.date.isBefore(endOfWeek.add(Duration(days: 1))))
+    expense.date.isAfter(startOfWeek.subtract(const Duration(days: 1))) &&
+        expense.date.isBefore(endOfWeek.add(const Duration(days: 1))))
         .fold(0, (sum, expense) => sum + expense.amount);
 
     isLoading=false;

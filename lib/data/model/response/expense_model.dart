@@ -30,7 +30,7 @@ class Expense extends HiveObject {
     required String description,
   }) {
     return Expense(
-      id: Uuid().v4(),  // Generate unique ID
+      id: const Uuid().v4(),  // Generate unique ID
       amount: amount,
       date: date,
       description: description,

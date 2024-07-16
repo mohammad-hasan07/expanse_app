@@ -4,7 +4,8 @@ A new Flutter project for managing expenses.
 
 ## Project Description
 
-Expanse App is a Flutter application designed to help users track and manage their expenses. The app includes features such as adding and categorizing expenses, viewing expense reports, and setting reminders for payments.
+Expanse App is a Flutter application designed to help  manage their personal expenses.
+The app includes features such as adding and updating expenses, viewing expense and it will daily remind to review expense.
 
 ## Installation Instructions
 

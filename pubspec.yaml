@@ -37,14 +37,13 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^4.0.4
   get: ^4.6.1
-  font_awesome_flutter: ^10.4.0
   intl: ^0.18.1
-  image_picker: ^1.0.4
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   uuid: ^3.0.6
   flutter_local_notifications: ^17.2.1+2
   timezone:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:

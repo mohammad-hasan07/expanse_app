@@ -7,7 +7,7 @@ import '../../../data/model/response/expense_model.dart';
 class AddExpenseScreen extends StatefulWidget {
   final Expense? expense;
 
-  const AddExpenseScreen({Key? key, this.expense}) : super(key: key);
+  const AddExpenseScreen({super.key, this.expense});
 
   @override
   State<AddExpenseScreen> createState() => _AddExpenseScreenState();
@@ -25,7 +25,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   void initState() {
     if (widget.expense != null) {
       _amountController.text = widget.expense!.amount.toString();
-      _descriptionController.text = widget.expense!.description ?? '';
+      _descriptionController.text = widget.expense!.description;
       _selectedDate = widget.expense!.date;
     }
     super.initState();
