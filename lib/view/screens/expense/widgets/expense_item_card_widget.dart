@@ -106,7 +106,7 @@ class ExpenseItemWidget extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.center,
                  crossAxisAlignment: CrossAxisAlignment.center,
                  children: [
-                  Text('\$${expense.amount.toStringAsFixed(2)}',style: TextStyle(
+                  Text('₹${expense.amount.toStringAsFixed(2)}',style: TextStyle(
                        fontSize: Dimensions.fontSizeLarge,fontWeight: FontWeight.w500
                    ),),
                  ],

@@ -16,7 +16,6 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ExpenseAdapter());
   await Hive.openBox<Expense>('expenses');
-  await Hive.openBox<Expense>('expenses');
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Asia/Kolkata'));
   requestAndroidPermissions();// Use the full time zone identifier
